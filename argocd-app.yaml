@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rating-api
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/pn2153/aksdemo.git
+    targetRevision: HEAD
+    path: helm/rating-api
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devapp
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
