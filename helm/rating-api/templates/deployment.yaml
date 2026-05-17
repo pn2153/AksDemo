@@ -19,5 +19,9 @@ spec:
       - name: rating-api
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
 
+        envFrom:
+          - configMapRef:
+              name: rating-api-config
+
         ports:
         - containerPort: 5000
