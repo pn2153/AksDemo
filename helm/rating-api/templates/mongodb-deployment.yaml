@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: ratings-mongodb
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: ratings-mongodb
+
+  template:
+    metadata:
+      labels:
+        app: ratings-mongodb
+
+    spec:
+      containers:
+      - name: mongodb
+
+        image: mongo:7
+
+        ports:
+        - containerPort: 27017

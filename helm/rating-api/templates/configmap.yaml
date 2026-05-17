@@ -6,3 +6,4 @@ metadata:
 
 data:
   APP_MESSAGE: "Hello from ConfigMap via Helm and ArgoCD!, Try2"
+  MONGO_URL: "mongodb://ratings-mongodb:27017"
