@@ -5,6 +5,13 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
 
+  strategy:
+    type: RollingUpdate
+
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
   selector:
     matchLabels:
       app: rating-api
@@ -23,5 +30,33 @@ spec:
           - configMapRef:
               name: rating-api-config
 
+          - secretRef:
+              name: rating-api-secret
+
         ports:
         - containerPort: 5000
+        
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+
+          initialDelaySeconds: 10
+          periodSeconds: 5
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
