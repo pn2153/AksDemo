@@ -10,7 +10,7 @@ spec:
     kind: Deployment
     name: rating-api
 
-  minReplicas: 3
+  minReplicas: 1
   maxReplicas: 6
   metrics:
     - type: Resource
