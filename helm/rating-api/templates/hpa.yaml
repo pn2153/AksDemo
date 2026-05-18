@@ -11,7 +11,7 @@ spec:
     name: rating-api
 
   minReplicas: 1
-  maxReplicas: 6
+  maxReplicas: 3
   metrics:
     - type: Resource
 
