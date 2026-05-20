@@ -3,6 +3,7 @@ kind: Ingress
 
 metadata:
   name: rating-api-ingress
+  namespace: devapp
   labels:
     
 spec:
