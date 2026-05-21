@@ -5,4 +5,4 @@ metadata:
   name: rating-api-config
 
 data:
-  APP_MESSAGE: "Hello from ConfigMap via Helm and ArgoCD!, Try2"
+  APP_MESSAGE: "Hello from ConfigMap via Helm and ArgoCD!, After Azure CI"
