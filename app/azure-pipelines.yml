@@ -1,0 +1,25 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  imageRepository: rating-api
+  acrName: acrniyati
+  tag: $(Build.BuildId)
+
+steps:
+
+- task: Docker@2
+  displayName: Build and Push Image
+
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: '**/Dockerfile'
+
+    containerRegistry: acr-service-connection
+
+    tags: |
+      $(tag)
