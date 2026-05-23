@@ -26,16 +26,27 @@ spec:
       - name: rating-api
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
 
-        envFrom:
-          - configMapRef:
+        env:
+        - name: APP_MESSAGE
+          valueFrom:
+            configMapKeyRef:
               name: rating-api-config
+              key: APP_MESSAGE
 
-          - secretRef:
-              name: rating-api-secret
+        - name: MONGO_URL
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: MONGO_URL
 
         ports:
         - containerPort: 5000
         
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+
         livenessProbe:
           httpGet:
             path: /health
@@ -60,3 +71,12 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "200m"
+
+      volumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+
+          volumeAttributes:
+            secretProviderClass: "azure-keyvault-secrets"
